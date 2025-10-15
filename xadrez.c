@@ -1,51 +1,96 @@
-#include <stdio.h> // Biblioteca padrão para entrada e saída
+#include <stdio.h>  // Biblioteca padrão para entrada e saída
 
+// =========================================
+// Funções Recursivas
+// =========================================
+
+// 🔹 Função recursiva para mover a Torre (horizontalmente para a direita)
+void moverTorre(int casasRestantes, int passo) {
+    // Caso base: nenhuma casa restante
+    if (casasRestantes == 0)
+        return;
+
+    printf("Torre -> Direita (%d)\n", passo);
+
+    // Chamada recursiva: move a próxima casa
+    moverTorre(casasRestantes - 1, passo + 1);
+}
+
+// 🔹 Função recursiva para mover o Bispo (diagonal cima + direita)
+//    com loops aninhados internos simulando movimentos verticais e horizontais
+void moverBispo(int casasRestantes, int passo) {
+    if (casasRestantes == 0)
+        return;
+
+    // Loop externo: simula movimento vertical (Cima)
+    for (int v = 1; v <= 1; v++) {
+        // Loop interno: simula movimento horizontal (Direita)
+        for (int h = 1; h <= 1; h++) {
+            printf("Bispo -> Cima, Direita (%d)\n", passo);
+        }
+    }
+
+    moverBispo(casasRestantes - 1, passo + 1);
+}
+
+// 🔹 Função recursiva para mover a Rainha (horizontalmente para a esquerda)
+void moverRainha(int casasRestantes, int passo) {
+    if (casasRestantes == 0)
+        return;
+
+    printf("Rainha -> Esquerda (%d)\n", passo);
+
+    moverRainha(casasRestantes - 1, passo + 1);
+}
+
+// =========================================
+// Função para simular o movimento do Cavalo
+// =========================================
+// O cavalo se move em "L": duas casas para cima e uma para a direita
+void moverCavalo() {
+    printf("=== Movimento do CAVALO ===\n");
+
+    // Loops aninhados com múltiplas variáveis e controle de fluxo
+    for (int i = 1; i <= 2; i++) {  // Movimento vertical (duas casas para cima)
+        for (int j = 1; j <= 1; j++) {  // Movimento horizontal (uma casa à direita)
+            if (i == 2 && j == 1) {
+                printf("Cavalo -> Cima, Cima, Direita (movimento em L completo)\n");
+                break; // Sai do loop interno após o movimento completo
+            }
+            printf("Cavalo -> Cima (%d)\n", i);
+        }
+    }
+
+    printf("Fim do movimento do Cavalo.\n\n");
+}
+
+// =========================================
+// Função principal
+// =========================================
 int main() {
-    // ==============================
-    // Simulação de movimentos de peças de xadrez
-    // Peças: Torre, Bispo e Rainha
-    // Cada uma usa uma estrutura de repetição diferente
-    // ==============================
+    // Quantidade de casas a serem movidas (definidas diretamente no código)
+    int casasTorre = 5;
+    int casasBispo = 5;
+    int casasRainha = 8;
 
-    // ==============================
-    // 1️⃣ Torre - Movimento 5 casas para a direita (usando FOR)
-    // ==============================
-    int i;
-    int movimentoTorre = 5;
-
+    // ===== MOVIMENTO DA TORRE =====
     printf("=== Movimento da TORRE ===\n");
-    for (i = 1; i <= movimentoTorre; i++) {
-        printf("Direita (%d)\n", i);
-    }
+    moverTorre(casasTorre, 1);
+    printf("\n");
 
-    // ==============================
-    // 2️⃣ Bispo - Movimento 5 casas na diagonal (Cima + Direita)
-    // Usando WHILE
-    // ==============================
-    int movimentoBispo = 5;
-    int contadorBispo = 1;
+    // ===== MOVIMENTO DO BISPO =====
+    printf("=== Movimento do BISPO ===\n");
+    moverBispo(casasBispo, 1);
+    printf("\n");
 
-    printf("\n=== Movimento do BISPO ===\n");
-    while (contadorBispo <= movimentoBispo) {
-        printf("Cima, Direita (%d)\n", contadorBispo);
-        contadorBispo++;
-    }
+    // ===== MOVIMENTO DA RAINHA =====
+    printf("=== Movimento da RAINHA ===\n");
+    moverRainha(casasRainha, 1);
+    printf("\n");
 
-    // ==============================
-    // 3️⃣ Rainha - Movimento 8 casas para a esquerda (usando DO-WHILE)
-    // ==============================
-    int movimentoRainha = 8;
-    int contadorRainha = 1;
+    // ===== MOVIMENTO DO CAVALO =====
+    moverCavalo();
 
-    printf("\n=== Movimento da RAINHA ===\n");
-    do {
-        printf("Esquerda (%d)\n", contadorRainha);
-        contadorRainha++;
-    } while (contadorRainha <= movimentoRainha);
-
-    // ==============================
-    // Fim do programa
-    // ==============================
-    printf("\nSimulação concluída!\n");
+    printf("Simulação finalizada com sucesso!\n");
     return 0;
 }
